@@ -1,72 +1,49 @@
-import { motion } from 'framer-motion'
-import { ExternalLink, Code2, Layout, Layers } from 'lucide-react'
-
-const projects = [
-  {
-    title: 'Interactive 3D Landing',
-    desc: 'A playful product site blending Spline scenes with buttery-smooth parallax.',
-    tags: ['React', 'Spline', 'Framer Motion'],
-    icon: Layers,
-    link: '#'
-  },
-  {
-    title: 'SaaS Dashboard',
-    desc: 'Data-dense, minimal UI with focus on clarity, contrast, and speed.',
-    tags: ['React', 'Tailwind', 'Charts'],
-    icon: Layout,
-    link: '#'
-  },
-  {
-    title: 'Design System Kit',
-    desc: 'Scalable component library with tokens, themes, and accessibility baked in.',
-    tags: ['TypeScript', 'Storybook', 'A11y'],
-    icon: Code2,
-    link: '#'
-  }
-]
-
 export default function Projects() {
+  const items = [
+    {
+      title: 'Realtime Dashboard',
+      desc: 'A clean analytics dashboard with charts, data grid and role-based access.',
+      tags: ['React', 'Tailwind', 'API'],
+      link: '#',
+    },
+    {
+      title: 'Design System',
+      desc: 'Modular UI kit with accessible primitives and dark mode first approach.',
+      tags: ['Design', 'Tokens', 'Docs'],
+      link: '#',
+    },
+    {
+      title: '3D Showcase',
+      desc: 'A gallery of interactive 3D scenes embedded with Spline.',
+      tags: ['3D', 'Spline', 'Web'],
+      link: '#',
+    },
+  ];
+
   return (
-    <section id="projects" className="relative py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-white/30 to-transparent" />
-      <div className="relative mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Selected Work</h2>
-          <p className="mt-3 text-slate-600">A small collection of recent projects focused on interaction, performance, and polish.</p>
+    <section id="projects" className="bg-neutral-950 py-16 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-white">Projects</h2>
+          <p className="text-neutral-400">A selection of focused, production-quality work.</p>
         </div>
-
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <motion.a
-              key={p.title}
-              href={p.link}
-              target={p.link.startsWith('#') ? undefined : '_blank'}
-              rel="noreferrer"
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ delay: i * 0.05 }}
-              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-transform will-change-transform hover:-translate-y-1">
-              <div className="absolute right-0 top-0 h-40 w-40 translate-x-10 -translate-y-10 rounded-full bg-indigo-500/10 blur-2xl transition-opacity group-hover:opacity-100" />
-
-              <div className="relative flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 text-white shadow">
-                  {p.icon ? <p.icon size={18} /> : null}
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900">{p.title}</h3>
-                <ExternalLink className="ml-auto h-4 w-4 text-slate-400 opacity-0 transition-opacity group-hover:opacity-100" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((p) => (
+            <a key={p.title} href={p.link} className="group block rounded-xl border border-neutral-800 bg-neutral-900 p-5 hover:border-emerald-500/40">
+              <div className="flex items-center justify-between">
+                <h3 className="text-white font-medium">{p.title}</h3>
+                <span className="text-[10px] text-emerald-300 border border-emerald-500/30 bg-emerald-500/10 rounded px-2 py-0.5">Case Study</span>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">{p.desc}</p>
-
+              <p className="mt-2 text-sm text-neutral-400">{p.desc}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
-                  <span key={t} className="rounded-full border border-slate-200 bg-white/70 px-2.5 py-1 text-xs text-slate-600">{t}</span>
+                  <span key={t} className="text-xs text-neutral-300 border border-neutral-700 rounded px-2 py-0.5">{t}</span>
                 ))}
               </div>
-            </motion.a>
+            </a>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

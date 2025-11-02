@@ -1,56 +1,70 @@
-import { useState } from 'react'
-import { Menu, X, Rocket, Github, Linkedin } from 'lucide-react'
+import { useState } from 'react';
+import { Menu, X, Github, Linkedin } from 'lucide-react';
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const scrollTo = (id) => {
-    const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    setOpen(false)
-  }
+  const Item = ({ href, children }) => (
+    <a
+      href={href}
+      className="px-3 py-2 rounded-md text-sm font-medium text-neutral-200 hover:text-white hover:bg-neutral-800/70"
+      onClick={() => setOpen(false)}
+    >
+      {children}
+    </a>
+  );
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
+    <header className="sticky top-0 z-40 w-full border-b border-neutral-800/80 bg-neutral-950/80 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mt-4 rounded-2xl border border-white/10 bg-white/60 backdrop-blur-xl shadow-lg">
-          <div className="flex items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-2">
-              <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-md">
-                <Rocket size={18} />
-              </div>
-              <span className="font-semibold tracking-tight text-slate-900">My Portfolio</span>
-            </div>
+        <div className="flex h-14 items-center justify-between">
+          <a href="#home" className="text-white font-semibold tracking-tight">MyPortfolio</a>
 
-            <nav className="hidden md:flex items-center gap-8 text-sm">
-              <button onClick={() => scrollTo('hero')} className="text-slate-700 hover:text-slate-900">Home</button>
-              <button onClick={() => scrollTo('projects')} className="text-slate-700 hover:text-slate-900">Projects</button>
-              <button onClick={() => scrollTo('about')} className="text-slate-700 hover:text-slate-900">About</button>
-              <button onClick={() => scrollTo('contact')} className="text-slate-700 hover:text-slate-900">Contact</button>
-            </nav>
+          <nav className="hidden md:flex items-center gap-1">
+            <Item href="#home">Home</Item>
+            <Item href="#studio">3D Studio</Item>
+            <Item href="#projects">Projects</Item>
+            <Item href="#contact">Contact</Item>
+          </nav>
 
-            <div className="hidden md:flex items-center gap-3">
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white/70 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-white"> <Github size={16} /> GitHub</a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-medium text-white hover:bg-black"> <Linkedin size={16} /> LinkedIn</a>
-            </div>
-
-            <button onClick={() => setOpen(!open)} className="md:hidden rounded-xl border border-slate-200 bg-white/70 p-2 text-slate-700">
-              {open ? <X size={18} /> : <Menu size={18} />}
-            </button>
+          <div className="hidden md:flex items-center gap-2">
+            <a aria-label="GitHub" href="https://github.com" target="_blank" rel="noreferrer" className="p-2 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800/70">
+              <Github size={18} />
+            </a>
+            <a aria-label="LinkedIn" href="https://linkedin.com" target="_blank" rel="noreferrer" className="p-2 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800/70">
+              <Linkedin size={18} />
+            </a>
           </div>
 
-          {open && (
-            <div className="md:hidden border-t border-white/20 px-6 py-4">
-              <div className="flex flex-col gap-3">
-                <button onClick={() => scrollTo('hero')} className="py-2 text-left text-slate-700">Home</button>
-                <button onClick={() => scrollTo('projects')} className="py-2 text-left text-slate-700">Projects</button>
-                <button onClick={() => scrollTo('about')} className="py-2 text-left text-slate-700">About</button>
-                <button onClick={() => scrollTo('contact')} className="py-2 text-left text-slate-700">Contact</button>
-              </div>
-            </div>
-          )}
+          <button
+            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-neutral-300 hover:text-white hover:bg-neutral-800/70"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
+
+      {open && (
+        <div className="md:hidden border-t border-neutral-800/80 bg-neutral-950">
+          <div className="px-4 py-3 space-y-1">
+            <Item href="#home">Home</Item>
+            <Item href="#studio">3D Studio</Item>
+            <Item href="#projects">Projects</Item>
+            <Item href="#contact">Contact</Item>
+            <div className="flex items-center gap-2 pt-2">
+              <a aria-label="GitHub" href="https://github.com" target="_blank" rel="noreferrer" className="p-2 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800/70">
+                <Github size={18} />
+              </a>
+              <a aria-label="LinkedIn" href="https://linkedin.com" target="_blank" rel="noreferrer" className="p-2 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800/70">
+                <Linkedin size={18} />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
-  )
+  );
 }
